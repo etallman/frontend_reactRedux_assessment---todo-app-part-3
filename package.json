@@ -6,9 +6,11 @@
   "dependencies": {
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
+    "react-redux": "^6.0.1",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.1"
+    "react-scripts": "2.1.1",
+    "redux": "^4.0.1"
   },
   "scripts": {
     "predeploy": "npm run build",
@@ -27,7 +29,9 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "devDependencies": {},
+  "devDependencies": {
+    "redux-devtools": "^3.5.0"
+  },
   "description": "Fork then clone this repository: [https://gitlab.com/kenzie-academy/se/fe/react/assessment---todo-app-part-1](https://gitlab.com/kenzie-academy/se/fe/react/assessment---todo-app-part-1)",
   "main": "index.js",
   "author": "",
