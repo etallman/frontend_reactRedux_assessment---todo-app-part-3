@@ -33,20 +33,7 @@ class App extends Component {
   //   })
   //   this.setState({
   //     todos: newTodos
-  //   });
-  // }
-  ////Delete ToDo///////
-  // handleDestroyTodo = id => {
-  //   const newTodos = this.state.todos
-  //   this.setState({ todos: newTodos.filter(todo => todo.id !== id) })
-  // }
-  ////Remove All Completed///////
-  // clearCompletedTodos = () => {
-  //   const newTodos = this.state.todos
-  //   this.setState({
-  //     todos: newTodos.filter(todo => todo.completed === false)
-  //   })
-  // }
+
 
   render() {
     return (
@@ -65,18 +52,15 @@ class App extends Component {
           <Switch>
             <Route path='/active' render={() => (
               <TodoList todos={this.props.todos.filter(todo => todo.completed === false)}
-              // handleClearCompleted={this.clearCompletedTodos} 
               />
             )} />
             <Route path='/completed' render={() => (
               <TodoList todos={this.props.todos.filter(todo => todo.completed === true)}
-              // handleClearCompleted={this.clearCompletedTodos} 
               />
             )} />
             <Route path='/' render={() => (
               <TodoList
                 todos={this.props.todos}
-              // handleClearCompleted={this.clearCompletedTodos} 
               />
             )} />
           </Switch>
