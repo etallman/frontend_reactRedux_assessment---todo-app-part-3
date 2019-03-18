@@ -4,6 +4,7 @@ import TodoList from "./TodoList.jsx";
 import { BrowserRouter as Router, Route, NavLink, Switch } from "react-router-dom";
 import { connect } from 'react-redux'
 import { clearCompletedTodos, addTodo } from "./actions.js"
+import Button from 'react-bootstrap/Button';
 
 class App extends Component {
   state = {
@@ -23,17 +24,6 @@ class App extends Component {
   handleInputChange = (e) => {
     this.setState({ value: e.target.value });
   };
-  ////Mark Checkbox Completed///
-  // handleMarkCompleted = (id) => {
-  //   const newTodos = this.state.todos.map(todo => {
-  //     if (todo.id === id) {
-  //       todo.completed = !todo.completed
-  //     }
-  //     return todo
-  //   })
-  //   this.setState({
-  //     todos: newTodos
-
 
   render() {
     return (
