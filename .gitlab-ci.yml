@@ -7,7 +7,7 @@ pages:
   - rm -rf public
   - mv build public
   variables:
-    PUBLIC_URL: "/todo-part3"
+    PUBLIC_URL: "/todo-part3/"
   artifacts:
     paths:
     - public
