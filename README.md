@@ -1,143 +1,51 @@
-# Assessment: Todos Part 1
+# Assessment: ToDo App Part 3
 
-Fork then clone this repository: [https://gitlab.com/kenzie-academy/se/fe/react/assessment---todo-app-part-1](https://gitlab.com/kenzie-academy/se/fe/react/assessment---todo-app-part-1)
+## Overview
+Convert your Todo App to using Redux. Redux is an alternative to passing props through several layers of child components in order to get data where you need it to be. The goal of this assessment will be to refactor your app so that your application's state is in a Redux store instead of in your App component's state.
 
-For this assessment, you'll be extending a todo application such that users can actually interact with it.
+In this assessment, you will demonstrate a basic understanding of the following:
+<ul>
+<li>mapStateToProps</li>
+<li>mapDispatchToProps</li>
+<li>Actions / Dispatch</li>
+<li>Reducers</li>
+<li>Store / Provider / Connect</li>
 
-Here's what the final product should look like:  
-![example output](screenshots/result.gif)
+## Getting Started
 
-In doing so, you'll be demonstrating a basic understanding of the following:
-
-- modifying component-specific values using state
-- responding to user interactions by using event handlers and component methods
-
-Event handlers can be written in a variety of ways.
-
-What is most important to understand is how to bind them properly to the component instance.
-You may see a few different ways.
-
-```jsx
-// ES5 style
-
-class MyComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.handleToggle = this.handleToggle.bind(this);
-    this.state = { on: false };
-  }
-
-  handleToggle(event) {
-    this.setState(state => ({
-      on: !state.on;
-    }));
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-        <h1>Toggle is {this.state.on ? "on" : "off"}</h1>
-        <button onClick={this.handleToggle}>Click Me</button>
-      </React.Fragment>
-    );
-  }
-}
-```
-
-```jsx
-// ES6 style
-
-class MyComponent extends Component {
-  state = {
-    on: false
-  }
-
-  handleToggle = event => {
-    this.setState(state => ({
-      on: !state.on;
-    }));
-  };
-
-  render() {
-    return (
-      <React.Fragment>
-        <h1>Toggle is {this.state.on ? "on" : "off"}</h1>
-        <button onClick={this.handleToggle}>Click Me</button>
-      </React.Fragment>
-    );
-  }
-}
-```
-
-The ES6 style is preferred. Proper binding, using one of the patterns above, is required when the handler must refer to any properties or methods on the component instance. Remember, properties/methods on the instance are accessed using `this` when writing instance methods. It is very common that you will need `this.setState` method inside an event handler method.
-
-The complexity of event handlers can increase when working with lists of components where each component needs its own "parameterized" version of the event handler.
-
-Consider the example below.
-
-```jsx
-class MyComponent extends Component {
-  state = {
-    accounts: [{ id: 2938 }, { id: 3874 }, { id: 6984 }]
-  };
-
-  handleDelete = accountId => event => {
-    const newAccounts = this.state.accounts.filter(
-      account => account.id !== accountId
-    );
-    this.setState({ accounts: newAccounts });
-  };
-
-  render() {
-    return (
-      <React.Fragment>
-        <h1>Active Accounts</h1>
-        {this.state.accounts.map(account => (
-          <div>
-            <p>Account: {account.id}</p>
-            <button onClick={this.handleDelete(account.id)}>
-              Delete Account
-            </button>
-          </div>
-        ))}
-      </React.Fragment>
-    );
-  }
-}
-```
-
-Two things to notice: `handleDelete` method is actually a function inside of a function (using two fat arrows). Just the one `handleDelete` method is used for every account, and the first function is called with the `account.id` (you can see the first call in the button onClick). This creates a closure, aka a new memory context, in which `accountId` is saved along with the return value, which is the inner function of `handleDelete`. React will hand off this function closure to the DOM. The DOM then calls the inner function, passing in the `event` object when the user clicks one of the buttons. When the inner function runs, its value for `accountId` will contain the correct id for the button that was clicked.
+To get started, copy your code from the previous part into a new repository.
 
 ## Acceptance Criteria
 
-### User Can Add a Todo:
+Look at the Rubric Below.
 
-When a user types into the top input and hits the Enter/return key, it should add it as a todo and empty the input.
+## Technical Details
 
-### User can mark a todo as complete:
+Conceptually, all of the business logic contained in your event handler functions will now become action creator functions. One exception to be careful of is the handleCreate event handler; there is an if statement that checks whether the key pressed was an Enter key or not. That logic should stay in your handleCreate event handle because it is logic directly related to handling the DOM event. However, all the other code is business logic that can be moved to an action creator function that could be called addTodo.
 
-When a user clicks on the circle at the beginning of a todo it will toggle whether that todo is completed or not.
+Every action creator will have an associated action type constant. For example, the addTodo action creator will return an action object whose type property will be ADD_TODO.
 
-### User Can Delete a Todo:
+Some event handler methods had to be passed down as props two times. For example, the handleDelete handler was defined in the App component and it was passed down to TodoList and then passed down again to TodoItem. With Redux, we do not have to pass down props multiple times. You should only have to pass down props a maximum of one time.
 
-When a user clicks the "X" on the right of a Todo, it removes it from the list.
+You can achieve this by using connect to connect any component to read data from the redux store (via mapStateToProps) or to fire an action creator (via mapDispatchToProps).
 
-### User Can Delete all Todos Marked as Complete:
+**Stuck? Here are some Helpful Resources**
 
-When a user clicks the button 'Clear Completed' it will delete all todos that are marked as complete.
+[Switch](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch "Switch")
+
+[Actions](https://redux.js.org/basics/actions "Actions")
+
+[Reducers](https://redux.js.org/basics/reducers "Reducers")
+
+[Action Types](https://redux.js.org/basics/actions#actions-js "Action Types")
+
+[Store](https://redux.js.org/basics/store#source-code "Store")
+
+[Provider](https://redux.js.org/basics/usage-with-react#index-js "Provider")
+
+[Connect: Extracting Data with mapStateToProps](https://react-redux.js.org/using-react-redux/connect-mapstate "Extract")
+
+[Connect: Dispatching Actions with mapDispatchToProps](https://react-redux.js.org/using-react-redux/connect-mapdispatch "Dispatch")
 
 ## Submission
-
-You **will** be required to submit a deployed application. If you instead
-submit a link to a repository (that is, only code), you _will_ be awarded
-**0** points.
-
-
-NOTES:
-//In App component return, Wrap in  Router tag <Router></Router>
-//(around section todoapp....)
-//exact will make exactly the route Path. no other URL parts//
-//Use <switch></switch>
-//import BrowserRouter as Router, Route, Link
-//when the URL matches then it applies this (activeClassName ) -- use navlink
-//<NavLink to = '/' activeClassName="selected">all</NavLink>
+You will be required to submit a deployed application. If you instead submit a link to a repository (that is, only code), you will be awarded 0 points.
